@@ -547,7 +547,7 @@ mod tests {
 
     #[test]
     fn existing_currency_strings_still_work() {
-        for code in ["USD", "EUR", "GBP"] {
+        for code in ["USD", "EUR", "GBP", "ZAR"] {
             let yaml = format!("defaults:\n  currency: {code}\n");
             let cfg = parse(&yaml).unwrap_or_else(|e| panic!("{code}: {e}"));
             assert_eq!(cfg.defaults.currency.code(), code);

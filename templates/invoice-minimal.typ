@@ -18,7 +18,7 @@
 )[#body]
 
 #set page(
-  paper: "us-letter",
+  paper: "a4",
   margin: (top: 36pt, right: 42pt, bottom: 54pt, left: 42pt),
   fill: paper,
   footer: [

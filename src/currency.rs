@@ -7,6 +7,7 @@ pub enum Currency {
     Usd,
     Gbp,
     Jpy,
+    Zar,
 }
 
 impl Currency {
@@ -16,6 +17,7 @@ impl Currency {
             Self::Usd => "USD",
             Self::Gbp => "GBP",
             Self::Jpy => "JPY",
+            Self::Zar => "ZAR",
         }
     }
 
@@ -25,12 +27,13 @@ impl Currency {
             Self::Usd => "$",
             Self::Gbp => "£",
             Self::Jpy => "¥",
+            Self::Zar => "R",
         }
     }
 
     pub const fn minor_unit(self) -> u32 {
         match self {
-            Self::Eur | Self::Usd | Self::Gbp => 2,
+            Self::Eur | Self::Usd | Self::Gbp | Self::Zar => 2,
             Self::Jpy => 0,
         }
     }
@@ -45,8 +48,9 @@ impl TryFrom<String> for Currency {
             "USD" => Ok(Self::Usd),
             "GBP" => Ok(Self::Gbp),
             "JPY" => Ok(Self::Jpy),
+            "ZAR" => Ok(Self::Zar),
             other => Err(format!(
-                "unsupported currency '{other}'; supported: EUR, USD, GBP, JPY"
+                "unsupported currency '{other}'; supported: EUR, USD, GBP, JPY, ZAR"
             )),
         }
     }
