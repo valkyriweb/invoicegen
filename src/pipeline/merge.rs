@@ -59,6 +59,7 @@ pub fn merge(
             help: Some("Add a number field to the invoice.".to_string()),
         })?,
         number_prefix: merged.number_prefix.unwrap_or_default(),
+        draft: merged.draft.unwrap_or(false),
         date: merged.date.ok_or_else(|| MergeError::MissingField {
             field: "date",
             help: Some("Add a date field to the invoice.".to_string()),
@@ -188,6 +189,7 @@ mod tests {
         InvoicePatch {
             number: Some(1),
             number_prefix: None,
+            draft: None,
             date: Some(date(2026, 4, 18)),
             client: Some("acme".to_string()),
             items: Some(vec![LineItemPatch {

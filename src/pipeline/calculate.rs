@@ -40,6 +40,7 @@ mod tests {
         InvoiceDocument {
             number: 1,
             number_prefix: String::new(),
+            draft: false,
             date: date(2026, 1, 1),
             client: None,
             po_number: None,

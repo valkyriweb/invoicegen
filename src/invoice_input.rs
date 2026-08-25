@@ -17,6 +17,8 @@ pub struct InvoiceFile {
     pub number: u32,
     #[serde(default)]
     pub number_prefix: Option<String>,
+    #[serde(default)]
+    pub draft: bool,
     pub date: Date,
     #[serde(default)]
     pub client: ClientInput,
@@ -204,6 +206,7 @@ impl InvoiceFile {
         let mut patch = InvoicePatch {
             number: Some(self.number),
             number_prefix: self.number_prefix,
+            draft: Some(self.draft),
             date: Some(self.date),
             client: None,
             po_number: self.po_number,
