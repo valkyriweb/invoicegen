@@ -81,6 +81,7 @@ jobs:
             *.sha256
 
   update-tap:
+    if: github.repository == 'raine/invoicegen'
     needs: release
     runs-on: ubuntu-latest
     steps:
