@@ -207,6 +207,7 @@ A map of client keys to templates. Each template has:
 ```yaml
 number: 17 # required, integer
 number_prefix: INVBD # optional; overrides defaults.number_prefix
+draft: true # optional; visibly marks every page as DRAFT — NOT ISSUED
 date: 2026-04-18 # required, YYYY-MM-DD
 po_number: '001-015275' # optional
 notes: | # optional, printed below the item table
@@ -244,6 +245,8 @@ items: # required, at least one
 - a string like `client: example-client` to use a config client template as-is
 - an object to override a template or define invoice-local client details
   directly
+
+Set `draft: true` for review copies. Draft PDFs use a `Draft Invoice` heading, a `DRAFT DATE` label, and a `DRAFT — NOT ISSUED` footer on every page.
 
 Invoice-local `sender` replaces the global sender block when present.
 Invoice-local `client` data overrides global config or a referenced client

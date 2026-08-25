@@ -26,7 +26,11 @@
       columns: (1fr, auto),
       align: (left + bottom, right + bottom),
       [#mono-label([#inv.sender.name])],
-      [#text(font: "Instrument Serif", style: "italic", size: 10.5pt, fill: ink-soft)[Thank you.]],
+      [#if inv.draft [
+        #text(font: "JetBrains Mono", size: 9pt, weight: "bold", fill: rgb("#b42318"))[DRAFT — NOT ISSUED]
+      ] else [
+        #text(font: "Instrument Serif", style: "italic", size: 10.5pt, fill: ink-soft)[Thank you.]
+      ]],
     )
   ],
 )
@@ -68,7 +72,7 @@
     ],
     [
       #align(right)[
-        #text(font: "Inter", size: 30pt, weight: 500, tracking: -0.035em)[Invoice]
+        #text(font: "Inter", size: 30pt, weight: 500, tracking: -0.035em)[#if inv.draft [Draft Invoice] else [Invoice]]
         #v(6pt)
         #text(font: "JetBrains Mono", size: 9pt, tracking: 0.04em, fill: ink-soft)[No. #inv.number]
       ]
@@ -99,7 +103,7 @@
       column-gutter: 24pt,
       align: (left + top, center, left + top),
       [
-        #mono-label([ISSUED])
+        #mono-label(if inv.draft [DRAFT DATE] else [ISSUED])
         #v(4pt)
         #text(font: "JetBrains Mono", size: 10.5pt)[#inv.date_display]
       ],
@@ -116,7 +120,7 @@
       column-gutter: 24pt,
       align: (left + top, center, left + top, center, left + top),
       [
-        #mono-label([ISSUED])
+        #mono-label(if inv.draft [DRAFT DATE] else [ISSUED])
         #v(4pt)
         #text(font: "JetBrains Mono", size: 10.5pt)[#inv.date_display]
       ],

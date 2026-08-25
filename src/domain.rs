@@ -22,6 +22,7 @@ pub struct InvoiceLineItem {
 pub struct InvoiceDocument {
     pub number: u32,
     pub number_prefix: String,
+    pub draft: bool,
     pub date: Date,
     pub client: Option<String>,
     pub po_number: Option<String>,
@@ -76,6 +77,7 @@ impl LineItemPatch {
 pub struct InvoicePatch {
     pub number: Option<u32>,
     pub number_prefix: Option<String>,
+    pub draft: Option<bool>,
     pub date: Option<Date>,
     pub client: Option<String>,
     pub po_number: Option<String>,
@@ -100,6 +102,9 @@ impl InvoicePatch {
         }
         if overlay.number_prefix.is_some() {
             self.number_prefix = overlay.number_prefix;
+        }
+        if overlay.draft.is_some() {
+            self.draft = overlay.draft;
         }
         if overlay.date.is_some() {
             self.date = overlay.date;

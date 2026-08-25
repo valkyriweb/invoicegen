@@ -3,6 +3,7 @@ use serde::Serialize;
 #[derive(Debug, Clone, Serialize)]
 pub struct RenderContext {
     pub number: String,
+    pub draft: bool,
     pub date_display: String,
     pub po_number: String,
     pub balance_due_display: String,

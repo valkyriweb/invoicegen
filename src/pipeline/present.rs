@@ -47,6 +47,7 @@ pub fn present(invoice: &InvoiceDocument, totals: &InvoiceTotals) -> Result<Rend
 
     Ok(RenderContext {
         number: format!("{}{}", invoice.number_prefix, invoice.number),
+        draft: invoice.draft,
         date_display,
         po_number: invoice.po_number.clone().unwrap_or_default(),
         balance_due_display: fmt(totals.total),
@@ -90,6 +91,7 @@ mod tests {
             InvoiceDocument {
                 number: 7,
                 number_prefix: String::new(),
+                draft: false,
                 date: date(2026, 4, 18),
                 client: None,
                 po_number: None,
@@ -120,6 +122,14 @@ mod tests {
                 total: dec!(200),
             },
         )
+    }
+
+    #[test]
+    fn preserves_draft_state_for_rendering() {
+        let (mut invoice, totals) = base();
+        invoice.draft = true;
+        let r = present(&invoice, &totals).unwrap();
+        assert!(r.draft);
     }
 
     #[test]
