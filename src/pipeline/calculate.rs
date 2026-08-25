@@ -39,6 +39,7 @@ mod tests {
     fn inv(items: Vec<InvoiceLineItem>, tax_rate: Decimal) -> InvoiceDocument {
         InvoiceDocument {
             number: 1,
+            number_prefix: String::new(),
             date: date(2026, 1, 1),
             client: None,
             po_number: None,

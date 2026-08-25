@@ -15,6 +15,8 @@ use crate::paths::resolve_relative;
 #[serde(deny_unknown_fields)]
 pub struct InvoiceFile {
     pub number: u32,
+    #[serde(default)]
+    pub number_prefix: Option<String>,
     pub date: Date,
     #[serde(default)]
     pub client: ClientInput,
@@ -201,6 +203,7 @@ impl InvoiceFile {
     pub fn into_patch(self, invoice_dir: &Path) -> InvoicePatch {
         let mut patch = InvoicePatch {
             number: Some(self.number),
+            number_prefix: self.number_prefix,
             date: Some(self.date),
             client: None,
             po_number: self.po_number,
@@ -292,6 +295,16 @@ mod tests {
         let err = ": 2 @ 150".parse::<LineItemInput>().unwrap_err();
         let err = err.downcast::<LineItemInputError>().unwrap();
         assert_eq!(err.to_string(), "item description is empty");
+    }
+
+    #[test]
+    fn invoice_number_prefix_is_available_to_merge() {
+        let invoice = parse(
+            "number: 348\nnumber_prefix: INVBD\ndate: 2026-08-25\nclient:\n  bill_to: Test\nitems:\n  - description: Test\n    quantity: 1\n    rate: 1\n",
+        )
+        .unwrap();
+        let patch = invoice.into_patch(Path::new("/tmp"));
+        assert_eq!(patch.number_prefix.as_deref(), Some("INVBD"));
     }
 
     #[test]

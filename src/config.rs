@@ -36,6 +36,7 @@ pub struct SenderConfig {
 pub struct DefaultsConfig {
     pub currency: Currency,
     pub locale: Locale,
+    pub number_prefix: String,
     pub date_format: String,
     pub output_dir: Option<PathBuf>,
     pub tax_rate: Decimal,
@@ -47,6 +48,7 @@ impl Default for DefaultsConfig {
         Self {
             currency: Currency::Eur,
             locale: Locale::EnUs,
+            number_prefix: String::new(),
             date_format: "%b %-d, %Y".to_string(),
             output_dir: None,
             tax_rate: Decimal::ZERO,
@@ -71,6 +73,7 @@ impl AppConfig {
                 address: self.sender.address.clone(),
                 logo_path: self.sender.logo.as_ref().map(|p| expand_tilde(p)),
             },
+            number_prefix: Some(self.defaults.number_prefix.clone()),
             tax_rate: Some(self.defaults.tax_rate),
             tax_note: self.defaults.tax_note.clone(),
             currency: Some(self.defaults.currency),

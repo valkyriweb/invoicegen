@@ -46,7 +46,7 @@ pub fn present(invoice: &InvoiceDocument, totals: &InvoiceTotals) -> Result<Rend
     });
 
     Ok(RenderContext {
-        number: invoice.number.to_string(),
+        number: format!("{}{}", invoice.number_prefix, invoice.number),
         date_display,
         po_number: invoice.po_number.clone().unwrap_or_default(),
         balance_due_display: fmt(totals.total),
@@ -89,6 +89,7 @@ mod tests {
         (
             InvoiceDocument {
                 number: 7,
+                number_prefix: String::new(),
                 date: date(2026, 4, 18),
                 client: None,
                 po_number: None,
@@ -119,6 +120,14 @@ mod tests {
                 total: dec!(200),
             },
         )
+    }
+
+    #[test]
+    fn prefixes_invoice_number() {
+        let (mut invoice, totals) = base();
+        invoice.number_prefix = "INVBD".into();
+        let r = present(&invoice, &totals).unwrap();
+        assert_eq!(r.number, "INVBD7");
     }
 
     #[test]

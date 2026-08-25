@@ -157,6 +157,7 @@ sender:
 
 defaults:
   currency: EUR
+  number_prefix: '' # optional, e.g. INVBD
   date_format: '%b %-d, %Y'
   tax_rate: 0
   tax_note: 'VAT 0%, Export of goods or services'
@@ -183,7 +184,8 @@ clients:
 
 #### `defaults`
 
-- `currency` (string): `EUR`, `USD`, or `GBP`, used to pick the symbol
+- `currency` (string): `EUR`, `USD`, `GBP`, or `ZAR`, used to pick the symbol
+- `number_prefix` (string): optional text rendered before the numeric invoice number (for example, `INVBD` renders number `348` as `INVBD348`)
 - `date_format` (string): `jiff` strftime pattern (e.g. `%b %-d, %Y`)
 - `output_dir` (path, optional): where PDFs land when `-o` is omitted. Relative
   paths resolve from the invoice file's directory. If omitted, the PDF is
@@ -204,6 +206,7 @@ A map of client keys to templates. Each template has:
 
 ```yaml
 number: 17 # required, integer
+number_prefix: INVBD # optional; overrides defaults.number_prefix
 date: 2026-04-18 # required, YYYY-MM-DD
 po_number: '001-015275' # optional
 notes: | # optional, printed below the item table
