@@ -21,6 +21,7 @@ pub struct InvoiceLineItem {
 #[derive(Debug, Clone)]
 pub struct InvoiceDocument {
     pub number: u32,
+    pub number_prefix: String,
     pub date: Date,
     pub client: Option<String>,
     pub po_number: Option<String>,
@@ -74,6 +75,7 @@ impl LineItemPatch {
 #[derive(Debug, Clone, Default)]
 pub struct InvoicePatch {
     pub number: Option<u32>,
+    pub number_prefix: Option<String>,
     pub date: Option<Date>,
     pub client: Option<String>,
     pub po_number: Option<String>,
@@ -95,6 +97,9 @@ impl InvoicePatch {
     pub fn apply(&mut self, overlay: InvoicePatch) {
         if overlay.number.is_some() {
             self.number = overlay.number;
+        }
+        if overlay.number_prefix.is_some() {
+            self.number_prefix = overlay.number_prefix;
         }
         if overlay.date.is_some() {
             self.date = overlay.date;
