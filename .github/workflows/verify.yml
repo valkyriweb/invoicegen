@@ -1,0 +1,16 @@
+name: Verify
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo test --locked
+      - run: cargo run --locked -- generate examples/demo.yaml --output /tmp/invoicegen-demo.pdf
+      - run: test -s /tmp/invoicegen-demo.pdf
